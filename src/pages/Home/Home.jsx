@@ -1,7 +1,10 @@
-import React from "react";
-
+import Header from "../../components/Header/Header";
 function Home() {
-  return <div className="px-20 ">Home page</div>;
+  return (
+    <div className="py-4 px-10">
+      <Header />
+    </div>
+  );
 }
 
 export default Home;
