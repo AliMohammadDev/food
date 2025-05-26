@@ -1,8 +1,12 @@
+import { useState } from "react";
+import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import Header from "../../components/Header/Header";
 function Home() {
+  const [category, setCategory] = useState("All");
   return (
     <div className="py-4 px-10">
       <Header />
+      <ExploreMenu category={category} setCategory={setCategory} />
     </div>
   );
 }
