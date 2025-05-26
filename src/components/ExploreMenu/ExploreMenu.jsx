@@ -48,6 +48,8 @@ function ExploreMenu({ category, setCategory }) {
           );
         })}
       </div>
+      <div className="border-b-2 border-gray-300 w-full"></div>
+
     </div>
   );
 }
