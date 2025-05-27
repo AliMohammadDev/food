@@ -3,7 +3,7 @@ import NavBar from "./components/Navbar/NavBar";
 import Footer from "./components/Footer/Footer";
 import { useEffect } from "react";
 import { useState } from "react";
-import LoginGroup from "./components/Logingroup/LoginGroup";
+import LoginPopup from "./components/LoginPopup/LoginPopup";
 
 const App = () => {
   const location = useLocation();
@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      {showLogin ? <LoginGroup /> : <></>}
+      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
       <NavBar setShowLogin={setShowLogin} />
       <Outlet />
       <Footer />
