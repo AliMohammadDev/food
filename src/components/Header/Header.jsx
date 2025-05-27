@@ -21,7 +21,7 @@ function Header() {
         </p>
         <button
           onClick={() => {
-            navigate("/menu");
+            navigate("/#explore-menu");
           }}
           className="bg-white text-gray-800 rounded-4xl cursor-pointer hover:bg-orange-100 transition px-6 py-3 font-semibold shadow-md w-max"
         >

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function NavBar({setShowLogin}) {
   const [menu, setMenu] = useState("home");
-  const navItems = ["home", "menu", "about us","mobile-app", "contact"];
+  const navItems = ["home", "menu", "about us", "contact"];
   const navigate = useNavigate();
   return (
     <div className="flex items-center justify-between px-6 py-4 shadow-md bg-white">
