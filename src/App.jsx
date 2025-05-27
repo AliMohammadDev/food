@@ -23,10 +23,12 @@ const App = () => {
   }, [location]);
 
   return (
-    <div>
-      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
+      <div className="min-h-screen flex flex-col">
+      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : null}
       <NavBar setShowLogin={setShowLogin} />
-      <Outlet />
+      <div className="flex-grow">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

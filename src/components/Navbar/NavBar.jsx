@@ -4,11 +4,13 @@ import { useState } from "react";
 
 function NavBar({setShowLogin}) {
   const [menu, setMenu] = useState("home");
-  const navItems = ["home", "menu", "mobile-app", "contact"];
+  const navItems = ["home", "menu", "about us","mobile-app", "contact"];
   const navigate = useNavigate();
   return (
     <div className="flex items-center justify-between px-6 py-4 shadow-md bg-white">
-      <img src={assets.logo} alt="logo" className="h-8" />
+      <img
+      onClick={() => navigate("/")}
+      src={assets.logo} alt="logo" className="h-8 cursor-pointer"  />
 
       <ul className="hidden md:flex gap-8 text-gray-700 font-medium">
         {navItems.map((item) => (
@@ -18,9 +20,10 @@ function NavBar({setShowLogin}) {
               setMenu(item);
               navigate(
                 item === "home"
-                  ? "/"
+                  ? "/" : item === "about us"
+                  ? "/about-us"
                   : item === "menu"
-                  ? "#explore-menu"
+                  ? "/menu"
                   : item === "mobile-app"
                   ? "#app-download"
                   : "#contact"
@@ -43,7 +46,9 @@ function NavBar({setShowLogin}) {
           alt="search"
           className="h-5 cursor-pointer"
         />
-        <div className="relative cursor-pointer">
+        <div
+        onClick={() => navigate("/cart")}
+        className="relative cursor-pointer">
           <img src={assets.basket_icon} alt="basket" className="h-5" />
           <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
         </div>
