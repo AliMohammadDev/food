@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import { useState } from "react";
 
-function NavBar() {
+function NavBar({setShowLogin}) {
   const [menu, setMenu] = useState("home");
   const navItems = ["home", "menu", "mobile-app", "contact"];
   const navigate = useNavigate();
@@ -16,7 +16,15 @@ function NavBar() {
             key={item}
             onClick={() => {
               setMenu(item);
-              navigate(item === "home" ? "/" : `/${item}`);
+              navigate(
+                item === "home"
+                  ? "/"
+                  : item === "menu"
+                  ? "#explore-menu"
+                  : item === "mobile-app"
+                  ? "#app-download"
+                  : "#contact"
+              );
             }}
             className={`cursor-pointer capitalize transition border-b-2 ${
               menu === item
@@ -40,7 +48,9 @@ function NavBar() {
           <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
         </div>
 
-        <button className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition">
+        <button
+        onClick={() => setShowLogin(true)}
+        className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition">
           Sign In
         </button>
       </div>

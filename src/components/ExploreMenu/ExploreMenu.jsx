@@ -2,7 +2,7 @@ import { menu_list } from "../../assets/assets";
 
 function ExploreMenu({ category, setCategory }) {
   return (
-    <div className="px-4 md:px-10 py-10 flex flex-col gap-8">
+    <div className="px-4 md:px-10 py-10 flex flex-col gap-8" id="explore-menu">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
           Explore Our Menu
