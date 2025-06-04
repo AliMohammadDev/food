@@ -1,9 +1,12 @@
-import { useContext } from "react";
-import { StoreContext } from "../../context/StoreContext";
+import { useGetItems } from "../../api/item";
 import FoodItem from "../../components/FoodItem/FoodItem";
+import Skeleton from "../../components/Skeleton.tsx";
 
 function Menu() {
-  const { food_list } = useContext(StoreContext);
+  const { data: items, isLoading, isError } = useGetItems();
+
+  if (isLoading) return <Skeleton />;
+  if (isError) return <div>error happened.</div>;
 
   return (
     <div className="px-6 md:px-20 py-10">
@@ -12,7 +15,7 @@ function Menu() {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-        {food_list.map((item) => (
+        {items.map((item) => (
           <FoodItem
             key={item.id}
             id={item.id}
