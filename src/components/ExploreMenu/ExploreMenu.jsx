@@ -1,7 +1,11 @@
 import { useGetCategories } from "../../api/category";
+import Skeleton from "../Skeleton";
 
 function ExploreMenu() {
   const { data: menu, isLoading, isError } = useGetCategories();
+
+  if (isLoading) return <Skeleton />;
+  if (isError) return <div>error happened.</div>;
 
   return (
     <div className="px-4 md:px-10 py-10 flex flex-col gap-8" id="explore-menu">

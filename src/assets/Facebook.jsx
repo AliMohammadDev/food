@@ -4,7 +4,7 @@ function Facebook() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="w-6 h-6 text-blue-600 hover:text-blue-800 cursor-pointer"
+      className="w-6 h-6 text-blue-600 hover:text-blue-800 cursor-pointer"
       fill="currentColor"
       viewBox="0 0 24 24"
     >

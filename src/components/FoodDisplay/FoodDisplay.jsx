@@ -1,5 +1,6 @@
 import { useGetItems } from "../../api/item";
 import Skeleton from "../Skeleton";
+import FoodItem from "../FoodItem/FoodItem";
 
 function FoodDisplay() {
   const { data: items, isLoading, isError } = useGetItems();
