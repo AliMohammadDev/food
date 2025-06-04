@@ -2,11 +2,15 @@ import React from "react";
 import { assets } from "../../assets/assets";
 import { useState } from "react";
 
-function FoodItem({ id, name, image, description, price, category }) {
+function FoodItem({ name, image, description, price }) {
   const [itemCount, setItemCount] = useState(0);
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg">
-      <img src={image} alt={name} className="w-full h-60 object-cover" />
+      <img
+        src={`http://localhost:3000/uploads/items/${image}`}
+        alt={name}
+        className="w-full h-60 object-cover"
+      />
 
       {!itemCount ? (
         <div className="flex justify-center mt-4">

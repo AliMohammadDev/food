@@ -1,7 +1,7 @@
 import { useGetCategories } from "../../api/category";
 import Skeleton from "../Skeleton";
 
-function ExploreMenu() {
+function ExploreMenu({ onCategorySelect  }) {
   const { data: menu, isLoading, isError } = useGetCategories();
 
   if (isLoading) return <Skeleton />;
@@ -26,25 +26,26 @@ function ExploreMenu() {
 
       {!isLoading && !isError && menu && menu.length > 0 && (
         <div className="flex gap-16 overflow-x-auto scrollbar-hide py-4 px-2">
-          {menu.map((item, index) => {
+          {menu.map((category, index) => {
             return (
               <div
                 key={index}
+                 onClick={() => onCategorySelect(category.items)} 
                 className="flex-shrink-0 flex flex-col items-center cursor-pointer transition-transform hover:scale-105"
               >
                 <div
                   className={`w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 shadow-md `}
                 >
                   <img
-                    src={item.image}
-                    alt={item.name}
+                    src={category.image}
+                    alt={category.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <p
                   className={`mt-3 text-center font-medium text-sm md:text-base `}
                 >
-                  {item.name}
+                  {category.name}
                 </p>
               </div>
             );
