@@ -6,6 +6,8 @@ import ErrorFallback from "../pages/ErrorFallback/ErrorFallback";
 import Cart from "../components/Cart/Cart";
 import PlaceOrder from "../pages/PlaceOrder/PlaceOrder";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import Login from "../components/auth/Login";
+import Register from "../components/auth/Register";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +35,18 @@ const router = createBrowserRouter([
       {
         path: "place-order",
         element: <PlaceOrder />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      // {
+      //   path: "/logout",
+      //   element: <Logout />,
+      // },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

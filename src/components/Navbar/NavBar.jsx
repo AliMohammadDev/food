@@ -3,7 +3,7 @@ import { assets } from "../../assets/assets";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-function NavBar({ setShowLogin }) {
+function NavBar() {
   const [menu, setMenu] = useState("home");
   const navItems = ["home", "menu", "about us", "contact"];
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ function NavBar({ setShowLogin }) {
           <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
         </div>
         <button
-          onClick={() => setShowLogin(true)}
+          onClick={() => navigate("/login")}
           className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition"
         >
           Sign In
@@ -129,7 +129,7 @@ function NavBar({ setShowLogin }) {
             </div>
             <button
               onClick={() => {
-                setShowLogin(true);
+                navigate("/login");
                 setMobileMenuOpen(false);
               }}
               className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition w-full"

@@ -2,13 +2,10 @@ import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "./components/Navbar/NavBar";
 import Footer from "./components/Footer/Footer";
 import { useEffect } from "react";
-import { useState } from "react";
-import LoginPopup from "./components/LoginPopup/LoginPopup";
 
 const App = () => {
   const location = useLocation();
 
-  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     if (location.hash) {
@@ -23,9 +20,8 @@ const App = () => {
   }, [location]);
 
   return (
-      <div className="min-h-screen flex flex-col">
-      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : null}
-      <NavBar setShowLogin={setShowLogin} />
+    <div className="min-h-screen flex flex-col">
+      <NavBar />
       <div className="flex-grow">
         <Outlet />
       </div>
