@@ -1,5 +1,4 @@
 import happyImage from "../../assets/happy.jpg";
-import BlurText from "../../components/common/BlurText";
 
 function AboutUs() {
   return (
@@ -16,13 +15,10 @@ function AboutUs() {
         />
 
         <div>
-          <BlurText
-            text="Welcome to Tomato Restaurant"
-            delay={0}
-            animateBy="words"
-            direction="top"
-            className="text-2xl font-semibold mb-4 text-gray-800"
-          />
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            Welcome to Tomato Restaurant
+          </h2>
+
           <p className="text-gray-600 leading-relaxed mb-4">
             At Tomato, we’re passionate about food. Since our founding in 2023,
             we've committed to d elivering fresh, delicious meals crafted with
