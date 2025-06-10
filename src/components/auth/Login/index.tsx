@@ -11,7 +11,8 @@ function Login() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100 sm:px-4 lg:px-8">
+    <div className="flex h-screen items-center justify-center sm:px-4 lg:px-8">
+
       <div className="w-full max-w-md">
         <div className="rounded bg-white p-6 shadow-md">
           <h2 className="my-3 mb-4 text-left text-3xl font-bold tracking-tight text-gray-900">
