@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h2 className="text-3xl font-bold mb-6">Your Cart</h2>
@@ -55,9 +55,10 @@ function Cart() {
             <span>Total:</span>
             <span>$22</span>
           </div>
-          <button 
-          onClick={() => navigate("/place-order")}
-          className="w-full cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
+          <button
+            onClick={() => navigate("/place-order")}
+            className="w-full cursor-pointer bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition"
+          >
             Proceed to Checkout
           </button>
         </div>

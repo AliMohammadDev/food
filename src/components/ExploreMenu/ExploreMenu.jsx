@@ -1,7 +1,7 @@
 import { useGetCategories } from "../../api/category";
 import Skeleton from "../Skeleton";
 
-function ExploreMenu({ onCategorySelect  }) {
+function ExploreMenu({ onCategorySelect }) {
   const { data: menu, isLoading, isError } = useGetCategories();
 
   if (isLoading) return <Skeleton />;
@@ -30,7 +30,7 @@ function ExploreMenu({ onCategorySelect  }) {
             return (
               <div
                 key={index}
-                 onClick={() => onCategorySelect(category.items)} 
+                onClick={() => onCategorySelect(category.items)}
                 className="flex-shrink-0 flex flex-col items-center cursor-pointer transition-transform hover:scale-105"
               >
                 <div

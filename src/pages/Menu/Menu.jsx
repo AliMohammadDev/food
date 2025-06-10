@@ -16,7 +16,10 @@ function Menu() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
         {items.map((item) => {
-          const image = item.image.replace("http://localhost:3000/uploads/items", "");
+          const image = item.image.replace(
+            "http://localhost:3000/uploads/items",
+            ""
+          );
           return (
             <FoodItem
               key={item.id}
