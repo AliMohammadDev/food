@@ -1,19 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import { useGetCartItems } from "../../api/cartItem";
+import { useDeleteCartItem, useGetCartItems } from "../../api/cartItem";
 
 function Cart() {
   const navigate = useNavigate();
   const { data: cartItems, isLoading, isError } = useGetCartItems();
 
+  const deleteMutation = useDeleteCartItem();
+
   if (isLoading) return <div className="p-6">Loading cart...</div>;
   if (isError)
     return <div className="p-6 text-red-500">Failed to load cart.</div>;
 
- const subtotal = cartItems?.reduce((sum, item) => sum + item.subtotal, 0) || 0;
-
+  const subtotal =
+    cartItems?.reduce((sum, item) => sum + item.subtotal, 0) || 0;
 
   const deliveryFee = 2;
   const total = subtotal + deliveryFee;
+
+  const handleRemove = (id) => {
+    deleteMutation.mutate(id.toString());
+  };
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -52,7 +58,11 @@ function Cart() {
                   <td className="py-3 px-4">{item.quantity}</td>
                   <td className="py-3 px-4">${item.subtotal}</td>
                   <td className="py-3 px-4">
-                    <button className="text-red-500 cursor-pointer hover:underline">
+                    <button
+                      onClick={() => handleRemove(item.id)}
+                      disabled={deleteMutation.isLoading}
+                      className="text-red-500 cursor-pointer hover:underline"
+                    >
                       Remove
                     </button>
                   </td>
