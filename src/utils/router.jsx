@@ -8,6 +8,7 @@ import PlaceOrder from "../pages/PlaceOrder/PlaceOrder";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
+import Logout from "../pages/Logout";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,10 +41,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      // {
-      //   path: "/logout",
-      //   element: <Logout />,
-      // },
+      {
+        path: "/logout",
+        element: <Logout />,
+      },
       {
         path: "/register",
         element: <Register />,

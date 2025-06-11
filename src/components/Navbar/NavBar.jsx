@@ -74,12 +74,28 @@ function NavBar() {
             </>
           )}
         </div>
-        <button
+        {/* <button
           onClick={() => navigate("/login")}
           className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition"
         >
           Sign In
-        </button>
+        </button> */}
+
+        {profile ? (
+          <button
+             onClick={() => navigate("/logout")} 
+            className="bg-gray-800 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
+          >
+            Logout
+          </button>
+        ) : (
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition"
+          >
+            Sign In
+          </button>
+        )}
       </div>
 
       {/* Mobile Menu Icon */}
@@ -138,15 +154,27 @@ function NavBar() {
               <img src={assets.basket_icon} alt="basket" className="h-5" />
               <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
             </div>
-            <button
-              onClick={() => {
-                navigate("/login");
-                setMobileMenuOpen(false);
-              }}
-              className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition w-full"
-            >
-              Sign In
-            </button>
+            {profile ? (
+              <button
+                onClick={() => {
+                navigate("/logout");
+                  setMobileMenuOpen(false);
+                }}
+                className="bg-gray-800 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-gray-700 transition w-full"
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  navigate("/login");
+                  setMobileMenuOpen(false);
+                }}
+                className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition w-full"
+              >
+                Sign In
+              </button>
+            )}
           </div>
         </div>
       )}
