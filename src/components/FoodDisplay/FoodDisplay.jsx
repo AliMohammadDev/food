@@ -21,7 +21,7 @@ function FoodDisplay({ items }) {
         {items.map((item, index) => (
           <FoodItem
             key={index}
-            id={item.id}
+            itemId={item.id}
             name={item.name}
             description={item.description}
             price={item.price}

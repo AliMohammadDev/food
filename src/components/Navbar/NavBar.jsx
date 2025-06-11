@@ -2,8 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useGetProfile } from "../../api/auth";
 
 function NavBar() {
+  const { data: profile } = useGetProfile();
+
   const [menu, setMenu] = useState("home");
   const navItems = ["home", "menu", "about us", "contact"];
   const navigate = useNavigate();
@@ -60,8 +63,12 @@ function NavBar() {
           onClick={() => navigate("/cart")}
           className="relative cursor-pointer"
         >
-          <img src={assets.basket_icon} alt="basket" className="h-5" />
-          <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+          {profile && (
+            <>
+              <img src={assets.basket_icon} alt="basket" className="h-5" />
+              <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+            </>
+          )}
         </div>
         <button
           onClick={() => navigate("/login")}
