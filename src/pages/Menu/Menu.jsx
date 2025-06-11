@@ -23,7 +23,7 @@ function Menu() {
           return (
             <FoodItem
               key={item.id}
-              id={item.id}
+              itemId={item.id}
               name={item.name}
               image={image}
               description={item.description}

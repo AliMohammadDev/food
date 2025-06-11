@@ -1,8 +1,20 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useGetCartItems } from "../../api/cartItem";
 
 function Cart() {
   const navigate = useNavigate();
+  const { data: cartItems, isLoading, isError } = useGetCartItems();
+
+  if (isLoading) return <div className="p-6">Loading cart...</div>;
+  if (isError)
+    return <div className="p-6 text-red-500">Failed to load cart.</div>;
+
+ const subtotal = cartItems?.reduce((sum, item) => sum + item.subtotal, 0) || 0;
+
+
+  const deliveryFee = 2;
+  const total = subtotal + deliveryFee;
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h2 className="text-3xl font-bold mb-6">Your Cart</h2>
@@ -20,22 +32,33 @@ function Cart() {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-t hover:bg-orange-50">
-              <td className="py-3 px-4">
-                <img
-                  src="https://via.placeholder.com/50"
-                  alt="Item"
-                  className="w-12 h-12 object-cover rounded"
-                />
-              </td>
-              <td className="py-3 px-4">Pizza Margherita</td>
-              <td className="py-3 px-4">$10</td>
-              <td className="py-3 px-4">2</td>
-              <td className="py-3 px-4">$20</td>
-              <td className="py-3 px-4">
-                <button className="text-red-500 hover:underline">Remove</button>
-              </td>
-            </tr>
+            {cartItems.map((item) => {
+              const imagePath = item.item.image.replace(
+                "http://localhost:3000/uploads/items",
+                ""
+              );
+
+              return (
+                <tr key={item.id} className="border-t hover:bg-orange-50">
+                  <td className="py-3 px-4">
+                    <img
+                      src={`http://localhost:3000/uploads/items/${imagePath}`}
+                      alt={item.item.name}
+                      className="w-12 h-12 object-cover rounded"
+                    />
+                  </td>
+                  <td className="py-3 px-4">{item.item.name}</td>
+                  <td className="py-3 px-4">${item.item.price}</td>
+                  <td className="py-3 px-4">{item.quantity}</td>
+                  <td className="py-3 px-4">${item.subtotal}</td>
+                  <td className="py-3 px-4">
+                    <button className="text-red-500 cursor-pointer hover:underline">
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -45,15 +68,15 @@ function Cart() {
           <h2 className="text-xl font-semibold mb-2">Cart Totals</h2>
           <div className="flex justify-between">
             <span>Subtotal:</span>
-            <span>$20</span>
+            <span>${subtotal}</span>
           </div>
           <div className="flex justify-between">
             <span>Delivery Fee:</span>
-            <span>$2</span>
+            <span>${deliveryFee}</span>
           </div>
           <div className="flex justify-between font-bold text-lg border-t pt-2">
             <span>Total:</span>
-            <span>$22</span>
+            <span>${total}</span>
           </div>
           <button
             onClick={() => navigate("/place-order")}

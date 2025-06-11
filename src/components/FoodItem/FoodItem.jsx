@@ -14,7 +14,7 @@ function FoodItem({ itemId, name, image, description, price }) {
   const handleAddClick = () => {
     const newCount = itemCount + 1;
     setItemCount(newCount);
-
+  console.log("Adding itemId:", itemId);
     mutate({
       itemId: itemId,
       quantity: 1,

@@ -56,7 +56,7 @@ export const useGetCartItems = () => {
   const query = useQuery({
     queryKey: ['cartItem'],
     queryFn: async () => {
-      const res = await axios.get<CartItemsResponse>('items');
+      const res = await axios.get<CartItemsResponse>('cart-item');
       return res.data.data;
     }
   });

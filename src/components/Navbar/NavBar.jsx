@@ -3,9 +3,11 @@ import { assets } from "../../assets/assets";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useGetProfile } from "../../api/auth";
+import { useGetCartItems } from "../../api/cartItem";
 
 function NavBar() {
   const { data: profile } = useGetProfile();
+  const { data: cartItems } = useGetCartItems();
 
   const [menu, setMenu] = useState("home");
   const navItems = ["home", "menu", "about us", "contact"];
@@ -66,7 +68,9 @@ function NavBar() {
           {profile && (
             <>
               <img src={assets.basket_icon} alt="basket" className="h-5" />
-              <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+              {cartItems && cartItems.length > 0 && (
+                <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+              )}
             </>
           )}
         </div>
