@@ -14,7 +14,7 @@ function Cart() {
   const subtotal =
     cartItems?.reduce((sum, item) => sum + item.subtotal, 0) || 0;
 
-  const deliveryFee = 2;
+  const deliveryFee = 5;
   const total = subtotal + deliveryFee;
 
   const handleRemove = (id) => {
@@ -33,7 +33,7 @@ function Cart() {
               <th className="py-3 px-4">Title</th>
               <th className="py-3 px-4">Price</th>
               <th className="py-3 px-4">Quantity</th>
-              <th className="py-3 px-4">Total</th>
+              <th className="py-3 px-4">Subtotal</th>
               <th className="py-3 px-4">Remove</th>
             </tr>
           </thead>
