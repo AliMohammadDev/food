@@ -5,9 +5,13 @@ import {
   useGetCartItems,
   useUpdateCartItem,
 } from "../../api/cartItem";
+import { useGetProfile } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
 
 function FoodItem({ itemId, name, image, description, price }) {
   const { data: cartItems } = useGetCartItems();
+  const navigate = useNavigate(); 
+  const { data: profile } = useGetProfile();
 
   const cartItem = cartItems?.find((item) => item.item.id === itemId);
 
@@ -22,20 +26,25 @@ function FoodItem({ itemId, name, image, description, price }) {
   });
 
   const handleAddClick = () => {
+    if (!profile) {
+      toast.info("Please log in to add items to your cart.");
+      navigate("/login");
+      return;
+    }
+
     addItemToCart({
       itemId: itemId,
       quantity: 1,
     });
   };
 
-const handleRemoveClick = () => {
-  if (itemCount > 0) {
-    updateCartItem({
-      itemId: itemId,
-    });
-  }
-};
-
+  const handleRemoveClick = () => {
+    if (itemCount > 0) {
+      updateCartItem({
+        itemId: itemId,
+      });
+    }
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg">
