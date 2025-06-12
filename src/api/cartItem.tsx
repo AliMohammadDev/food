@@ -5,7 +5,7 @@ import axios, { AxiosError } from "axios";
 
 export type CartItemInput = {
   itemId: number;
-  quantity: number;
+  quantity?: number;
 }
 
 export type CartItem = {
@@ -92,6 +92,33 @@ export const useAddCartItem = (onSuccess?: (data: CartItemResponse) => void) => 
   return mutation;
 };
 
+
+export const useUpdateCartItem = (onSuccess?: (data: CartItemResponse) => void) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation<CartItemResponse, AxiosError<{ server_error: string }>, CartItemInput>({
+    mutationFn: async (data: CartItemInput) => {
+      try {
+        const res = await axios.patch<CartItemResponse>(
+          `cart-item/${data.itemId}`,
+          {
+            itemId: data.itemId, 
+          }
+        );
+        return res.data;
+      }
+      catch (error) {
+        const err = error as AxiosError<{ server_error: string }>;
+        const message = err.response?.data.server_error;
+        throw new Error(message || "there was an error");
+      }
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["cartItem"] });
+      if (onSuccess) onSuccess(data);
+    },
+  });
+  return mutation;
+}
 
 
 export const useDeleteCartItem = (onSuccess?: (data: CartItemResponse) => void) => {

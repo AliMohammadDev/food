@@ -38,37 +38,39 @@ function Cart() {
             </tr>
           </thead>
           <tbody>
-            {cartItems.map((item) => {
-              const imagePath = item.item.image.replace(
-                "http://localhost:3000/uploads/items",
-                ""
-              );
+            {cartItems
+              .filter((item) => item.quantity > 0)
+              .map((item) => {
+                const imagePath = item.item.image.replace(
+                  "http://localhost:3000/uploads/items",
+                  ""
+                );
 
-              return (
-                <tr key={item.id} className="border-t hover:bg-orange-50">
-                  <td className="py-3 px-4">
-                    <img
-                      src={`http://localhost:3000/uploads/items/${imagePath}`}
-                      alt={item.item.name}
-                      className="w-12 h-12 object-cover rounded"
-                    />
-                  </td>
-                  <td className="py-3 px-4">{item.item.name}</td>
-                  <td className="py-3 px-4">${item.item.price}</td>
-                  <td className="py-3 px-4">{item.quantity}</td>
-                  <td className="py-3 px-4">${item.subtotal}</td>
-                  <td className="py-3 px-4">
-                    <button
-                      onClick={() => handleRemove(item.id)}
-                      disabled={deleteMutation.isLoading}
-                      className="text-red-500 cursor-pointer hover:underline"
-                    >
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+                return (
+                  <tr key={item.id} className="border-t hover:bg-orange-50">
+                    <td className="py-3 px-4">
+                      <img
+                        src={`http://localhost:3000/uploads/items/${imagePath}`}
+                        alt={item.item.name}
+                        className="w-12 h-12 object-cover rounded"
+                      />
+                    </td>
+                    <td className="py-3 px-4">{item.item.name}</td>
+                    <td className="py-3 px-4">${item.item.price}</td>
+                    <td className="py-3 px-4">{item.quantity}</td>
+                    <td className="py-3 px-4">${item.subtotal}</td>
+                    <td className="py-3 px-4">
+                      <button
+                        onClick={() => handleRemove(item.id)}
+                        disabled={deleteMutation.isLoading}
+                        className="text-red-500 cursor-pointer hover:underline"
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

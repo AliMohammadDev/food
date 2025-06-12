@@ -1,29 +1,41 @@
-import React, { useState } from "react";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
-import { useAddCartItem, useGetCartItems } from "../../api/cartItem";
+import {
+  useAddCartItem,
+  useGetCartItems,
+  useUpdateCartItem,
+} from "../../api/cartItem";
 
 function FoodItem({ itemId, name, image, description, price }) {
-  const [itemCount, setItemCount] = useState(0);
-    const { data: cartItems } = useGetCartItems();
+  const { data: cartItems } = useGetCartItems();
 
-  const { mutate } = useAddCartItem(() => {
+  const cartItem = cartItems?.find((item) => item.item.id === itemId);
+
+  const itemCount = cartItem?.quantity || 0;
+
+  const { mutate: addItemToCart } = useAddCartItem(() => {
     toast.success("Item added successfully");
   });
 
+  const { mutate: updateCartItem } = useUpdateCartItem(() => {
+    toast.success("Item updated successfully");
+  });
+
   const handleAddClick = () => {
-    const newCount = itemCount + 1;
-    setItemCount(newCount);
-  console.log("Adding itemId:", itemId);
-    mutate({
+    addItemToCart({
       itemId: itemId,
       quantity: 1,
     });
   };
 
-  const handleRemoveClick = () => {
-    setItemCount((prev) => Math.max(prev - 1, 0));
-  };
+const handleRemoveClick = () => {
+  if (itemCount > 0) {
+    updateCartItem({
+      itemId: itemId,
+    });
+  }
+};
+
 
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg">
