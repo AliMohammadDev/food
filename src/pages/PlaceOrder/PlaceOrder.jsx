@@ -1,6 +1,15 @@
 import React from "react";
+import { useCheckout } from "../../api/checkout";
 
 function PlaceOrder() {
+  const checkout = useCheckout((data) => {
+    window.location.href = data.url;
+  });
+
+  const handleCheckout = () => {
+    checkout.mutate(); // تنفيذ الـ API
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h2 className="text-3xl font-bold mb-8 text-gray-800">
@@ -26,9 +35,10 @@ function PlaceOrder() {
           </div>
           <button
             type="submit"
+            onClick={handleCheckout}
             className="bg-orange-500 cursor-pointer text-white font-semibold rounded px-6 py-2 hover:bg-orange-600 transition col-span-1 md:col-span-2 mt-4"
           >
-            Proceed to Payment
+            {checkout.isLoading ? "Processing..." : "Proceed to Payment"}
           </button>
         </div>
 
