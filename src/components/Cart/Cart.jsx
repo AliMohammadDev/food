@@ -63,9 +63,11 @@ function Cart() {
                       <button
                         onClick={() => handleRemove(item.id)}
                         disabled={deleteMutation.isLoading}
-                        className="text-red-500 cursor-pointer hover:underline"
+                        className="relative group text-red-500 text-xl font-bold transition duration-300 ease-in-out transform hover:scale-110 disabled:opacity-50"
+                        title="Remove"
                       >
-                        Remove
+                        <span className="relative z-10 cursor-pointer">×</span>
+                        <span className="absolute inset-0 rounded-full bg-red-100 opacity-0 group-hover:opacity-100 blur-md transition duration-500 animate-pulse"></span>
                       </button>
                     </td>
                   </tr>
