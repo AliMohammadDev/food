@@ -2,10 +2,10 @@ import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "./components/Navbar/NavBar";
 import Footer from "./components/Footer/Footer";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const location = useLocation();
-
 
   useEffect(() => {
     if (location.hash) {
@@ -19,8 +19,9 @@ const App = () => {
     }
   }, [location]);
 
-  return (
+  return (  
     <div className="min-h-screen flex flex-col">
+      <Toaster position="top-center" reverseOrder={false} />
       <NavBar />
       <div className="flex-grow">
         <Outlet />

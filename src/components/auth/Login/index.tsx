@@ -1,6 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { LoginInputs, useLogin } from "../../../api/auth";
+import toast, { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
 function Login() {
   const { register, handleSubmit } = useForm<LoginInputs>();
@@ -10,9 +12,17 @@ function Login() {
     login(values);
   };
 
+  useEffect(() => {
+    if (error instanceof Error) {
+      toast.error(error.message);
+    }
+  }, [error]);
+
+
+
   return (
     <div className="flex h-screen items-center justify-center sm:px-4 lg:px-8">
-
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-md">
         <div className="rounded bg-white p-6 shadow-md">
           <h2 className="my-3 mb-4 text-left text-3xl font-bold tracking-tight text-gray-900">
@@ -28,6 +38,7 @@ function Login() {
                 {...register("email")}
                 className="block w-full rounded-md border border-gray-300 px-2 py-3 focus:outline-none focus:ring-sky-500 sm:text-sm"
                 autoComplete="new-name"
+                required
                 placeholder="email"
               />
             </div>
@@ -62,9 +73,7 @@ function Login() {
                   Login
                 </button>
               )}
-              {error instanceof Error && (
-                <span className="text-sm text-red-700">{error.message}</span>
-              )}
+
             </div>
 
             <div className="mt-4 text-center">

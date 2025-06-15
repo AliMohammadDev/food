@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookie from "cookie-universal";
+import toast from "react-hot-toast";
 
 // login
 export type LoginInputs = {
@@ -81,6 +82,8 @@ export const useLogin = (onSuccess?: (data: LoginResponse["data"]) => void) => {
       }
     },
     onSuccess: (data) => {
+      toast.success("Login successful");
+
       onSuccess?.(data);
       const cookie = Cookie();
       cookie.set("token", data.access_token);

@@ -36,6 +36,7 @@ function Register() {
                 {...register("email")}
                 className="block w-full rounded-md border border-gray-300 px-2 py-3 focus:outline-none focus:ring-sky-500 sm:text-sm"
                 autoComplete="email"
+                required
                 placeholder="email"
               />
             </div>
