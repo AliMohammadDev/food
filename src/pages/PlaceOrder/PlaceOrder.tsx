@@ -1,13 +1,18 @@
 import React from "react";
-import { useCheckout } from "../../api/checkout";
+import { useCheckout, DeliveryInformationInput } from "../../api/checkout";
+import { useForm } from "react-hook-form";
 
 function PlaceOrder() {
+  const { register, handleSubmit } = useForm<DeliveryInformationInput>();
+
+
   const checkout = useCheckout((data) => {
     window.location.href = data.url;
   });
 
-  const handleCheckout = () => {
-    checkout.mutate(); // تنفيذ الـ API
+
+  const onSubmit = (data: DeliveryInformationInput) => {
+    checkout.mutate(data);
   };
 
   return (
@@ -35,54 +40,66 @@ function PlaceOrder() {
           </div>
           <button
             type="submit"
-            onClick={handleCheckout}
+            form="delivery-form"
             className="bg-orange-500 cursor-pointer text-white font-semibold rounded px-6 py-2 hover:bg-orange-600 transition col-span-1 md:col-span-2 mt-4"
           >
             {checkout.isLoading ? "Processing..." : "Proceed to Payment"}
           </button>
+
         </div>
 
-        <form className="bg-white p-6 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form
+          id="delivery-form"
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-white p-6 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-4">
           <h3 className="text-xl font-semibold col-span-1 md:col-span-2 text-gray-700 mb-2">
             Delivery Information
           </h3>
 
           <input
+            {...register("firstName")}
             type="text"
             placeholder="First Name"
             className="border rounded px-4 py-2"
           />
           <input
+            {...register("lastName")}
             type="text"
             placeholder="Last Name"
             className="border rounded px-4 py-2"
           />
           <input
+            {...register("email")}
             type="email"
             placeholder="Email"
             className="border rounded px-4 py-2 col-span-1 md:col-span-2"
           />
           <input
+            {...register("street")}
             type="text"
             placeholder="Street"
             className="border rounded px-4 py-2 col-span-1 md:col-span-2"
           />
           <input
+            {...register("city")}
             type="text"
             placeholder="City"
             className="border rounded px-4 py-2"
           />
           <input
+            {...register("state")}
             type="text"
             placeholder="State"
             className="border rounded px-4 py-2"
           />
           <input
+            {...register("zipCode")}
             type="text"
             placeholder="Zip Code"
             className="border rounded px-4 py-2"
           />
           <input
+            {...register("country")}
             type="text"
             placeholder="Country"
             className="border rounded px-4 py-2"

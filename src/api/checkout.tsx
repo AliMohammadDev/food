@@ -8,13 +8,24 @@ export type CheckoutResponse = {
   url: string;
 };
 
+export type DeliveryInformationInput = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+};
+
 export const useCheckout = (onSuccess?: (data: CheckoutResponse) => void) => {
 
 
-  const mutation = useMutation<CheckoutResponse, AxiosError<{ server_error: string }>>({
-    mutationFn: async () => {
+  const mutation = useMutation<CheckoutResponse, AxiosError<{ server_error: string }>, DeliveryInformationInput>({
+    mutationFn: async (deliveryInfo: DeliveryInformationInput) => {
       try {
-        const res = await axios.post<CheckoutResponse>("stripe/checkout");
+        const res = await axios.post<CheckoutResponse>("stripe/checkout", deliveryInfo);
         return res.data;
       }
       catch (error) {
