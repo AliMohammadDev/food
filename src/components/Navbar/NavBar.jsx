@@ -60,7 +60,23 @@ function NavBar() {
       {/* Actions */}
       <div className="hidden md:flex items-center gap-6">
         <SearchIcon />
-        <OrderShip />
+        {/* <div onClick={() => navigate("/orders")} className="cursor-pointer">
+          <OrderShip />
+        </div> */}
+
+        <div
+          onClick={() => navigate("/orders")}
+          className="relative cursor-pointer"
+        >
+          {profile && (
+            <>
+                <OrderShip />
+              {cartItems && cartItems.some((item) => item.quantity > 0) && (
+                <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+              )}
+            </>
+          )}
+        </div>
 
         <div
           onClick={() => navigate("/cart")}

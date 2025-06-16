@@ -20,8 +20,6 @@ export type DeliveryInformationInput = {
 };
 
 export const useCheckout = (onSuccess?: (data: CheckoutResponse) => void) => {
-
-
   const mutation = useMutation<CheckoutResponse, AxiosError<{ server_error: string }>, DeliveryInformationInput>({
     mutationFn: async (deliveryInfo: DeliveryInformationInput) => {
       try {
