@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useGetProfile } from "../../api/auth";
 import { useGetCartItems } from "../../api/cartItem";
+import OrderShip from "../../assets/OrderShip";
+import CartShip from "../../assets/CartShip";
+import { SearchIcon } from "lucide-react";
 
 function NavBar() {
   const { data: profile } = useGetProfile();
@@ -55,19 +58,17 @@ function NavBar() {
       </ul>
 
       {/* Actions */}
-      <div className="hidden md:flex items-center gap-4">
-        <img
-          src={assets.search_icon}
-          alt="search"
-          className="h-5 cursor-pointer"
-        />
+      <div className="hidden md:flex items-center gap-6">
+        <SearchIcon />
+        <OrderShip />
+
         <div
           onClick={() => navigate("/cart")}
           className="relative cursor-pointer"
         >
           {profile && (
             <>
-              <img src={assets.basket_icon} alt="basket" className="h-5" />
+              <CartShip />
               {cartItems && cartItems.some((item) => item.quantity > 0) && (
                 <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
               )}
@@ -78,14 +79,14 @@ function NavBar() {
         {profile ? (
           <button
             onClick={() => navigate("/logout")}
-            className="bg-gray-800 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-gray-700 transition"
+            className="bg-gray-800 text-white px-3 py-1.5 rounded-md hover:bg-gray-700 transition"
           >
             Logout
           </button>
         ) : (
           <button
             onClick={() => navigate("/login")}
-            className="bg-orange-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-orange-600 transition"
+            className="bg-orange-500 text-white px-3 py-1.5 rounded-md hover:bg-orange-600 transition"
           >
             Sign In
           </button>

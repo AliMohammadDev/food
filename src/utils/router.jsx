@@ -9,6 +9,7 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
 import Logout from "../pages/Logout";
+import Order from "../pages/Order";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "place-order",
         element: <PlaceOrder />,
+      },
+      {
+        path: "orders",
+        element: <Order />,
       },
       {
         path: "/login",
