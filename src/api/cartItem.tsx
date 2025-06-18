@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
+import Cookie from "cookie-universal";
 
 
 
@@ -75,6 +76,7 @@ export const useAddCartItem = (onSuccess?: (data: CartItemResponse) => void) => 
           itemId: data.itemId,
           quantity: data.quantity,
         });
+
         return res.data;
       }
       catch (error) {
@@ -84,6 +86,9 @@ export const useAddCartItem = (onSuccess?: (data: CartItemResponse) => void) => 
       }
     },
     onSuccess: (data) => {
+      const cookie = Cookie();
+      cookie.set("CartItem", JSON.stringify(data), { path: "/" });
+
       queryClient.invalidateQueries({ queryKey: ["cartItem"] });
       if (onSuccess) onSuccess(data);
     },
@@ -101,7 +106,7 @@ export const useUpdateCartItem = (onSuccess?: (data: CartItemResponse) => void) 
         const res = await axios.patch<CartItemResponse>(
           `cart-item/${data.itemId}`,
           {
-            itemId: data.itemId, 
+            itemId: data.itemId,
           }
         );
         return res.data;

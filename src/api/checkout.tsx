@@ -11,34 +11,38 @@ export type CheckoutResponse = {
 export type DeliveryInformationInput = {
   firstName: string;
   lastName: string;
-  email: string;
+  emailD: string;
   street: string;
   city: string;
   state: string;
   zipCode: string;
   country: string;
+  phone: string;
 };
 
-export const useCheckout = (onSuccess?: (data: CheckoutResponse) => void) => {
-  const mutation = useMutation<CheckoutResponse, AxiosError<{ server_error: string }>, DeliveryInformationInput>({
+
+
+export const useCheckout = (
+  onSuccess?: (data: CheckoutResponse) => void,
+  onError?: (messages: string[]) => void
+) => {
+  const mutation = useMutation<CheckoutResponse, AxiosError<{ message: string[] }>, DeliveryInformationInput>({
     mutationFn: async (deliveryInfo: DeliveryInformationInput) => {
       try {
         const res = await axios.post<CheckoutResponse>("stripe/checkout", deliveryInfo);
         return res.data;
-      }
-      catch (error) {
-        const err = error as AxiosError<{ server_error: string }>;
-        const message = err.response?.data.server_error;
-        throw new Error(message || "there was an error");
+      } catch (error) {
+        const err = error as AxiosError<{ message: string[] }>;
+        throw err;
       }
     },
     onSuccess: (data) => {
-      if (onSuccess) onSuccess(data);
+      onSuccess?.(data);
     },
+    onError: (error) => {
+      onError?.(error.response?.data.message || ["Unknown error"]);
+    }
   });
 
   return mutation;
-
-
-
 };

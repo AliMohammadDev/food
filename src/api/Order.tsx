@@ -11,8 +11,28 @@ export type OrderResponse = {
       id: number;
       status: string;
     };
+    delivery: {
+      id: number;
+      firstName: string;
+      lastName: string;
+      emailD: string;
+      street: string;
+      city: string;
+      state: string;
+      country: string;
+      phone: string;
+      zipCode: string;
+    };
+    createdAt: string;
   }[];
+  length: number;
+  result: {
+    name: string;
+    quantity: number;
+  }[];
+  sumPrice: number;
 };
+
 
 export function useGetAllOrder() {
   const query = useQuery({

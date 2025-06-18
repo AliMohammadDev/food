@@ -7,10 +7,12 @@ import { useGetCartItems } from "../../api/cartItem";
 import OrderShip from "../../assets/OrderShip";
 import CartShip from "../../assets/CartShip";
 import { SearchIcon } from "lucide-react";
+import { useGetAllOrder } from "../../api/Order";
 
 function NavBar() {
   const { data: profile } = useGetProfile();
   const { data: cartItems } = useGetCartItems();
+  const { data: orders } = useGetAllOrder();
 
   const [menu, setMenu] = useState("home");
   const navItems = ["home", "menu", "about us", "contact"];
@@ -70,8 +72,8 @@ function NavBar() {
         >
           {profile && (
             <>
-                <OrderShip />
-              {cartItems && cartItems.some((item) => item.quantity > 0) && (
+              <OrderShip />
+              {orders && (
                 <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
               )}
             </>
@@ -95,7 +97,7 @@ function NavBar() {
         {profile ? (
           <button
             onClick={() => navigate("/logout")}
-            className="bg-gray-800 text-white px-3 py-1.5 rounded-md hover:bg-gray-700 transition"
+            className="bg-gray-800 cursor-pointer text-white px-3 py-1.5 rounded-md hover:bg-gray-700 transition"
           >
             Logout
           </button>

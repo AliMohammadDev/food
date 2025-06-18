@@ -3,13 +3,44 @@ import { useCheckout, DeliveryInformationInput } from "../../api/checkout";
 import { useForm } from "react-hook-form";
 
 function PlaceOrder() {
-  const { register, handleSubmit } = useForm<DeliveryInformationInput>();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<DeliveryInformationInput>();
 
 
-  const checkout = useCheckout((data) => {
-    window.location.href = data.url;
-  });
-
+  const checkout = useCheckout(
+    (data) => {
+      window.location.href = data.url;
+    },
+    (messages) => {
+      messages.forEach((msg) => {
+        if (msg.includes("firstName")) {
+          setError("firstName", { message: msg });
+        } else if (msg.includes("lastName")) {
+          setError("lastName", { message: msg });
+        } else if (msg.includes("email")) {
+          setError("emailD", { message: msg });
+        } else if (msg.includes("emailD")) {
+          setError("emailD", { message: msg });
+        } else if (msg.includes("phone")) {
+          setError("phone", { message: msg });
+        } else if (msg.includes("street")) {
+          setError("street", { message: msg });
+        } else if (msg.includes("city")) {
+          setError("city", { message: msg });
+        } else if (msg.includes("state")) {
+          setError("state", { message: msg });
+        } else if (msg.includes("zipCode")) {
+          setError("zipCode", { message: msg });
+        } else if (msg.includes("country")) {
+          setError("country", { message: msg });
+        }
+      });
+    }
+  );
 
   const onSubmit = (data: DeliveryInformationInput) => {
     checkout.mutate(data);
@@ -56,55 +87,45 @@ function PlaceOrder() {
             Delivery Information
           </h3>
 
-          <input
-            {...register("firstName")}
-            type="text"
-            placeholder="First Name"
-            className="border rounded px-4 py-2"
-          />
-          <input
-            {...register("lastName")}
-            type="text"
-            placeholder="Last Name"
-            className="border rounded px-4 py-2"
-          />
-          <input
-            {...register("email")}
-            type="email"
-            placeholder="Email"
-            className="border rounded px-4 py-2 col-span-1 md:col-span-2"
-          />
-          <input
-            {...register("street")}
-            type="text"
-            placeholder="Street"
-            className="border rounded px-4 py-2 col-span-1 md:col-span-2"
-          />
-          <input
-            {...register("city")}
-            type="text"
-            placeholder="City"
-            className="border rounded px-4 py-2"
-          />
-          <input
-            {...register("state")}
-            type="text"
-            placeholder="State"
-            className="border rounded px-4 py-2"
-          />
-          <input
-            {...register("zipCode")}
-            type="text"
-            placeholder="Zip Code"
-            className="border rounded px-4 py-2"
-          />
-          <input
-            {...register("country")}
-            type="text"
-            placeholder="Country"
-            className="border rounded px-4 py-2"
-          />
+          <div className="flex flex-col">
+            <input {...register("firstName")} type="text" placeholder="First Name" className="border rounded px-4 py-2" />
+            {errors.firstName && <span className="text-red-500 text-sm">{errors.firstName.message}</span>}
+          </div>
+          <div className="flex flex-col">
+            <input {...register("lastName")} type="text" placeholder="Last Name" className="border rounded px-4 py-2" />
+            {errors.lastName && <span className="text-red-500 text-sm">{errors.lastName.message}</span>}
+          </div>
+          <div className="flex flex-col col-span-1 md:col-span-2">
+            <input {...register("emailD")} type="email" placeholder="Email" className="border rounded px-4 py-2" />
+            {errors.emailD && <span className="text-red-500 text-sm">{errors.emailD.message}</span>}
+          </div>
+          <div className="flex flex-col col-span-1 md:col-span-2">
+            <input {...register("street")} type="text" placeholder="Street" className="border rounded px-4 py-2" />
+            {errors.street && <span className="text-red-500 text-sm">{errors.street.message}</span>}
+          </div>
+          <div className="flex flex-col">
+            <input {...register("city")} type="text" placeholder="City" className="border rounded px-4 py-2" />
+            {errors.city && <span className="text-red-500 text-sm">{errors.city.message}</span>}
+          </div>
+          <div className="flex flex-col">
+            <input {...register("state")} type="text" placeholder="State" className="border rounded px-4 py-2" />
+            {errors.state && <span className="text-red-500 text-sm">{errors.state.message}</span>}
+          </div>
+          <div className="flex flex-col">
+            <input {...register("zipCode")} type="text" placeholder="Zip Code" className="border rounded px-4 py-2" />
+            {errors.zipCode && <span className="text-red-500 text-sm">{errors.zipCode.message}</span>}
+          </div>
+          <div className="flex flex-col">
+            <input {...register("country")} type="text" placeholder="Country" className="border rounded px-4 py-2" />
+            {errors.country && <span className="text-red-500 text-sm">{errors.country.message}</span>}
+          </div>
+          <div className="flex flex-col col-span-1 md:col-span-2">
+            <input {...register("phone")} type="text" placeholder="Phone" className="border rounded px-4 py-2" />
+            {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
+          </div>
         </form>
+
+
       </div>
     </div>
   );
