@@ -86,9 +86,6 @@ export const useAddCartItem = (onSuccess?: (data: CartItemResponse) => void) => 
       }
     },
     onSuccess: (data) => {
-      const cookie = Cookie();
-      cookie.set("CartItem", JSON.stringify(data), { path: "/" });
-
       queryClient.invalidateQueries({ queryKey: ["cartItem"] });
       if (onSuccess) onSuccess(data);
     },
